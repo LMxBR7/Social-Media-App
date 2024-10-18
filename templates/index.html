@@ -4,28 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Simple Social Media</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-        }
-        .post, .comment {
-            border: 1px solid #ccc;
-            padding: 10px;
-            margin: 10px 0;
-            border-radius: 5px;
-        }
-        .comment {
-            margin-left: 20px;
-        }
-        .form {
-            margin: 20px 0;
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
     <h1>Simple Social Media Platform</h1>
-    
+
     <!-- Form to add a new post -->
     <div class="form">
         <h2>New Post</h2>
@@ -43,6 +26,12 @@
         <div class="post">
             <strong>{{ post.user }}</strong> says:
             <p>{{ post.content }}</p>
+
+            <!-- Like button and like count -->
+            <form action="/like_post/{{ loop.index0 }}" method="POST" style="display: inline;">
+                <button type="submit">Like</button>
+            </form>
+            <span>{{ post.likes }} likes</span>
 
             <!-- Form to add a comment to the post -->
             <div class="form">
@@ -65,3 +54,4 @@
     </div>
 </body>
 </html>
+

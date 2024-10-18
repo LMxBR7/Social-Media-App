@@ -30,6 +30,12 @@ def add_comment(post_id):
         posts[post_id]['comments'].append({'user': user, 'comment': comment})
     return redirect(url_for('index'))
 
+@app.route('/like_post/<int:post_id>', methods=['POST'])
+def like_post(post_id):
+    # Increment the like count for the post
+    posts[post_id]['likes'] += 1
+    return redirect(url_for('index'))
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)
 
