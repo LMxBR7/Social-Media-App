@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Social Media</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .post, .comment {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+        }
+        .comment {
+            margin-left: 20px;
+        }
+        .form {
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Simple Social Media Platform</h1>
+    
+    <!-- Form to add a new post -->
+    <div class="form">
+        <h2>New Post</h2>
+        <form action="/add_post" method="POST">
+            <input type="text" name="user" placeholder="Your Name" required>
+            <textarea name="content" placeholder="What's on your mind?" required></textarea>
+            <button type="submit">Post</button>
+        </form>
+    </div>
+
+    <!-- Display posts and comments -->
+    <div>
+        <h2>Posts</h2>
+        {% for post in posts %}
+        <div class="post">
+            <strong>{{ post.user }}</strong> says:
+            <p>{{ post.content }}</p>
+
+            <!-- Form to add a comment to the post -->
+            <div class="form">
+                <form action="/add_comment/{{ loop.index0 }}" method="POST">
+                    <input type="text" name="user" placeholder="Your Name" required>
+                    <input type="text" name="comment" placeholder="Write a comment..." required>
+                    <button type="submit">Comment</button>
+                </form>
+            </div>
+
+            <!-- Display comments for the post -->
+            {% for comment in post.comments %}
+            <div class="comment">
+                <strong>{{ comment.user }}</strong> says:
+                <p>{{ comment.comment }}</p>
+            </div>
+            {% endfor %}
+        </div>
+        {% endfor %}
+    </div>
+</body>
+</html>
